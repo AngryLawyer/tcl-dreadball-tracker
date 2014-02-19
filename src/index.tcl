@@ -1,5 +1,5 @@
 package require agate
-#package require SimpleTemplater
+package require SimpleTemplater
 #package require sqlite3
 
 
