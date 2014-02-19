@@ -7,6 +7,7 @@ install:
     - sudo ./teacup link make "../lib/teapot" "/usr/bin/tclsh"
 
     - ./teacup install Itcl
-    - git clone https://github.com/AngryLawyer/tcl-agate.git "../lib/tcl-agate.git"
+    - git clone https://github.com/AngryLawyer/tcl-agate.git "../lib/teapot/tcl-agate.git"
 script:
+    - ls "../lib/teapot"
     - ./runtests 
