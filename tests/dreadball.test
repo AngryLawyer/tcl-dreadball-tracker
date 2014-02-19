@@ -1,0 +1,15 @@
+package require tcltest
+namespace import ::tcltest::test
+namespace import ::tcltest::cleanupTests
+
+source ../src/dreadball.tcl
+
+test dreadball {
+    Check we can create a Dreadball application
+} -body {
+    set app [::dreadball::dreadball::new] 
+} -cleanup {
+    itcl::delete object $app
+} -result {}
+
+cleanupTests
