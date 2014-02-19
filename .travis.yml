@@ -1,7 +1,11 @@
-language: node_js
-node_js:
-  - '0.8'
-  - '0.10'
-before_script:
-  - 'npm install -g bower grunt-cli'
-  - 'bower install'
+install:
+    - sudo apt-get install tcl
+    - wget --output-document=teacup http://teapot.activestate.com/application/name/teacup/ver/8.5.15.1.297611/arch/linux-glibc2.3-x86_64/file.exe
+    - chmod +x teacup
+    - sudo ./teacup setup /usr/bin/tclsh
+    - ./teacup create "../lib/teapot"
+    - sudo ./teacup link make "../lib/teapot" "/usr/bin/tclsh"
+
+    - ./teacup install Itcl
+script:
+    - ./runtests 

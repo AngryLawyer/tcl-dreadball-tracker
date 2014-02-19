@@ -8,8 +8,9 @@ test dreadball {
     Check we can create a Dreadball application
 } -body {
     set app [::dreadball::dreadball::new] 
+    expr {$app ne ""}
 } -cleanup {
     itcl::delete object $app
-} -result {}
+} -result {1}
 
 cleanupTests
