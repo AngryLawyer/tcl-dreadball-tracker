@@ -7,7 +7,11 @@ install:
     - sudo ./teacup link make "../lib/teapot" "/usr/bin/tclsh"
 
     - ./teacup install Itcl
+    - sudo rm -r "/usr/lib/tcl-agate"
     - sudo git clone https://github.com/AngryLawyer/tcl-agate.git "/usr/lib/tcl-agate"
+    - sudo rm -r "/usr/lib/SimpleTemplater"
     - sudo git clone https://github.com/cyrilthomas/SimpleTemplater.git "/usr/lib/SimpleTemplater"
 script:
+    - echo "puts \$auto_path" | tclsh
+    - echo "puts \$tcl_pkgPath" | tclsh
     - ./runtests 
