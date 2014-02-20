@@ -1,0 +1,21 @@
+package require tcltest
+namespace import ::tcltest::test
+namespace import ::tcltest::cleanupTests
+
+source ../src/dreadball.tcl
+source utils.tcl
+
+test "Accounts login" {
+    Check that we get a sensible response from the login url
+} -body {
+    set app [::dreadball::dreadball::new]
+    set request [fakeRequest {REQUEST_URI "/accounts/login/" REQUEST_METHOD GET}]
+    set response [$app handle $request] 
+    return [expr {[string length [$response getBody]] > 0}]
+} -cleanup {
+    itcl::delete object $app
+    itcl::delete object $request
+    itcl::delete object $response
+} -result {1}
+
+cleanupTests

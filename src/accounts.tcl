@@ -1,3 +1,5 @@
+package require SimpleTemplater
+
 namespace eval ::dreadball::accounts {
     namespace export accounts
 }
@@ -6,7 +8,8 @@ namespace eval ::dreadball::accounts {
 proc ::dreadball::accounts::routes {app} {
 
     $app get "^/accounts/login/$" {{} {
-        return "Login page"
+        #FIXME: This should be able to pull things from a sensible base path
+        return [::SimpleTemplater::render ../src/templates/index.tpl {}]
     }}
 
     $app post "^/accounts/login/$" {{} {
