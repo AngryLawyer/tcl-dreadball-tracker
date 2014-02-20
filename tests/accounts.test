@@ -18,4 +18,58 @@ test "Accounts login" {
     itcl::delete object $response
 } -result {1}
 
+test "Accounts register page" {
+    Check that we get a sensible response from the register url
+} -body {
+    set app [::dreadball::dreadball::new]
+    set request [fakeRequest {REQUEST_URI "/accounts/register/" REQUEST_METHOD GET}]
+    set response [$app handle $request] 
+    return [expr {[string length [$response getBody]] > 0}]
+} -cleanup {
+    itcl::delete object $app
+    itcl::delete object $request
+    itcl::delete object $response
+} -result {1}
+
+test "Accounts register failure" {
+    Check that we get a sensible response from the register url
+} -body {
+    set app [::dreadball::dreadball::new]
+    set request [fakeRequest {REQUEST_URI "/accounts/register/" REQUEST_METHOD POST}]
+    $request setPostData [dict create email test@test.com name shomodomo]
+    set response [$app handle $request] 
+    return [$response getStatusCode]
+} -cleanup {
+    itcl::delete object $app
+    itcl::delete object $request
+    itcl::delete object $response
+} -result {200}
+
+test "Accounts register success" {
+    Check that we get a sensible response from the register url
+} -body {
+    set app [::dreadball::dreadball::new]
+    set request [fakeRequest {REQUEST_URI "/accounts/register/" REQUEST_METHOD POST}]
+    $request setPostData [dict create email test@test.com name shomodomo password password]
+    set response [$app handle $request] 
+    return [$response getStatusCode] [$response getHeader Location]
+} -cleanup {
+    itcl::delete object $app
+    itcl::delete object $request
+    itcl::delete object $response
+} -result {303 "/accounts/register/success/"}
+
+test "Accounts register success page" {
+    Check that we get a sensible response from the register success url
+} -body {
+    set app [::dreadball::dreadball::new]
+    set request [fakeRequest {REQUEST_URI "/accounts/register/success/" REQUEST_METHOD GET}]
+    set response [$app handle $request] 
+    return [expr {[string length [$response getBody]] > 0}]
+} -cleanup {
+    itcl::delete object $app
+    itcl::delete object $request
+    itcl::delete object $response
+} -result {1}
+
 cleanupTests

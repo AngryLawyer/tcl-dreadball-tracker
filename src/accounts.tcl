@@ -17,7 +17,7 @@ proc ::dreadball::accounts::routes {app} {
     }}
 
     $app get "^/accounts/register/$" {{} {
-        return "Register page"
+        return [::SimpleTemplater::render ../src/templates/index.tpl {}]
     }}
 
     $app post "^/accounts/register/$" {{} {
@@ -25,6 +25,6 @@ proc ::dreadball::accounts::routes {app} {
     }}
 
     $app get "^/accounts/register/success/$" {{} {
-        return "Register success"
+        return [::SimpleTemplater::render ../src/templates/index.tpl {}]
     }}
 }
